@@ -1,0 +1,2 @@
+MONGO_DB = 'MONGO_DB'
+API_KEY = 'API_KEY'
