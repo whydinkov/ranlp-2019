@@ -1,0 +1,8 @@
+{
+    "editor.renderWhitespace": "boundary",
+    "editor.rulers": [80, 120],
+    "python.pythonPath": "C:\\Users\\Yoan\\.conda\\envs\\pre-master-thesis\\python.exe",
+    "python.linting.pylintEnabled": false,
+    "python.linting.pep8Enabled": true,
+    "python.linting.enabled": true
+}
