@@ -17,8 +17,9 @@ Categories are as follows:
 | анти-демократичен | [click here](http://budnaera.com/201701f/17010944.html) |
 | про-авториратерен | [click here](http://duma.bg/node/37323) |
 
-Distribution
+Distributed in following order:
 
+![distribution](https://user-images.githubusercontent.com/493912/53694505-1f4a1d00-3db0-11e9-9f3b-097a2180eb58.png)
 
 
 ## Models
