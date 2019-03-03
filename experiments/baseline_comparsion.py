@@ -17,14 +17,17 @@ db = database.MongoDB()
 df = pd.DataFrame(list(db.get_articles()))
 
 # preprocesing
-data = df['text']
+data = df['text'] + df['title']
+# data= df['text'].apply(lambda x: ' text_'.join(x.split(' '))) + \
+#     df['title'].apply(lambda x: ' title_'.join(x.split(' ')))
 y = df['label']
 
 # models
 baseline = pipelines.make(DummyClassifier(strategy="most_frequent"))
-svc = pipelines.make(LinearSVC())
+svc = pipelines.make(LinearSVC(random_state=0))
 nb = pipelines.make(MultinomialNB(fit_prior=True, class_prior=None))
 lr = pipelines.make(LogisticRegression(
+    random_state=0,
     solver='sag', max_iter=200, multi_class='auto'))
 
 # evaluation

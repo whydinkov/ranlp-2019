@@ -1,6 +1,6 @@
 import numpy as np
-from sklearn.model_selection import cross_val_score
 import matplotlib.pyplot as plt
+from sklearn.model_selection import cross_val_score
 
 
 def compare_classifiers(models, data, y, silent=False, plot=False, args={
