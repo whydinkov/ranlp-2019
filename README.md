@@ -24,4 +24,19 @@ Distributed in following order:
 
 ## Models
 
+Approach is to compare different categories of algorithms to conclude if there is any actual improvement with overall classification problem. So models, used are:
+
+ * Baselines
+ 
+ * Classifiers
+ 
+ * SOTA 
+
+
 ## Experiment results
+
+
+## References
+* Gadjokov
+* sklearn
+* bert
