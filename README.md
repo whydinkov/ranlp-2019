@@ -1,4 +1,4 @@
-# Detecting toxicity in bulgarian news articles labelled by https://mediascan.gadjokov.com/
+# Detecting toxicity in bulgarian news articles
 
 ## Dataset
 
@@ -16,6 +16,8 @@ Categories are as follows:
 | конспирации | [click here](https://trud.bg/article-4882794/) |
 | анти-демократичен | [click here](http://budnaera.com/201701f/17010944.html) |
 | про-авториратерен | [click here](http://duma.bg/node/37323) |
+
+Golden labels source: https://mediascan.gadjokov.com/
 
 Distributed in following order:
 
