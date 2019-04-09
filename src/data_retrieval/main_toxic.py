@@ -44,6 +44,9 @@ while has_results:
 
     for page_result in current_page_results:
         for t in page_result['tags']:
+            if t == 'анонимен':
+                continue
+
             if 'google' in t['link']:
                 continue
 
