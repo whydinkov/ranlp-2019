@@ -7,12 +7,16 @@ from . import constant
 class MongoDB:
     def __init__(self):
         if constant.MONGO_DB not in environ:
-            error_msg = f"{constant.MONGO_DB} environment variable missing. \
-                          Cannot establish connection."
+            error_msg = (f"{constant.MONGO_DB} environment variable missing."
+                         "Cannot establish connection.")
             raise KeyError(error_msg)
 
+        if constant.DB_NAME not in environ:
+            error_msg = (f"{constant.DB_NAME} environment variable. missing"
+                         "Cannot establish connection.")
+
         client = MongoClient(environ[constant.MONGO_DB])
-        database = client.toxic_articles
+        database = client[environ[constant.DB_NAME]]
 
         self.articles_collection = database.articles
 
