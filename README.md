@@ -2,9 +2,9 @@
 
 ## Dataset
 
-Contains 235 articles, manually labelled by [Krasimir Gadjokov](https://www.gadjokov.com/) between 2015-2017.
+Contains 237 articles, manually labelled by [Krasimir Gadjokov](https://www.gadjokov.com/) between 2012-2017. As well as 92 non-toxic articles fetched from popular bulgaria media outlets in 2019.
 
-Categories are as follows:
+Toxicity categories are as follows:
 
 | Category | Example |
 |----------|---------|
@@ -16,7 +16,7 @@ Categories are as follows:
 | конспирации | [click here](https://trud.bg/article-4882794/) |
 | анти-демократичен | [click here](http://budnaera.com/201701f/17010944.html) |
 | про-авториратерен | [click here](http://duma.bg/node/37323) |
-
+| _нетоксичен_ | [click here](https://www.actualno.com/bgfootball/nov-stadion-za-cska-no-ima-seriozni-problemi-za-reshavane-news_737893.html)
 Golden labels source: https://mediascan.gadjokov.com/
 
 Distributed in following order:
