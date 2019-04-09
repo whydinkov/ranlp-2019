@@ -48,6 +48,5 @@ def get_results(page):
                     'link': set_tag(tag['href'])
                 }
                 for tag
-                in article_links
-                if tag.getText().strip() != 'анонимен']
+                in article_links]
         }

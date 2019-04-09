@@ -2,10 +2,13 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from os import environ
 from . import constant
+from dotenv import load_dotenv
 
 
 class MongoDB:
     def __init__(self):
+        load_dotenv()
+
         if constant.MONGO_DB not in environ:
             error_msg = (f"{constant.MONGO_DB} environment variable missing."
                          "Cannot establish connection.")
