@@ -1,4 +1,4 @@
-from helpers import markup, media_eye, database
+from helpers import markup, media_eye, database, news
 from urllib.parse import urlparse, urljoin
 from newspaper import Article, build
 
@@ -10,32 +10,6 @@ ARTICLES_COUNT = 100
 ARTICLES_PER_PAPER = 5
 NON_TOXIC_LABEL = 'нетоксичен'
 
-
-def get_host(url):
-    parsed_uri = urlparse(url)
-
-    return parsed_uri.netloc
-
-
-def download_article(url):
-    article = Article(url)
-    article.download()
-    article.parse()
-
-    article.nlp()
-
-    return {
-        'origin': get_host(url),
-        'title': article.title,
-        'text': article.text,
-        'authors': article.authors,
-        'publish_date': article.publish_date,
-        'tags': list(article.tags),
-        'keywords': article.keywords,
-        'summary': article.summary
-    }
-
-
 has_results = True
 page_number = 1
 results = []
@@ -46,10 +20,9 @@ while has_results:
 
     for page_result in current_page_results:
         if any(page_result['tags']):
-            continue  # toxic
+            continue  # contains at least one tag -> toxic
 
-        paper_url = f"https://{page_result['link']}"
-        current_paper = build(paper_url)
+        current_paper = build(f"https://{page_result['link']}")
 
         for article_url in current_paper.article_urls()[:ARTICLES_PER_PAPER]:
             results.append({
@@ -60,23 +33,22 @@ while has_results:
     if len(results) >= ARTICLES_COUNT:
         break
 
-    has_results = len(current_page_results) > 0
-    page_number += 1
     print(f"Found articles links: {len(results)}")
     print(f'Processed page: {page_number}')
+    has_results = len(current_page_results) > 0
+    page_number += 1
 
-articles = []
 results_len = len(results)
 for index, r in enumerate(results):
     try:
-        current_article = download_article(r['link'])
+        current_article = news.download_article(r['link'])
         current_article['link'] = r['link']
         current_article['label'] = NON_TOXIC_LABEL
         current_article['media_info'] = r['media_info']
 
         db.save_article(current_article)
 
-        print(f'{index}/{results_len}')
+        print(f'{index + 1}/{results_len}')
     except Exception as e:
         print(e)
         pass
