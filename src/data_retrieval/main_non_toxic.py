@@ -1,6 +1,5 @@
 from helpers import markup, media_eye, database, news
-from urllib.parse import urlparse, urljoin
-from newspaper import Article, build
+from newspaper import build
 
 url = 'https://mediascan.gadjokov.com/?page='
 

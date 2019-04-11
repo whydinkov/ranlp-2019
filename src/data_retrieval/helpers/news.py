@@ -1,3 +1,7 @@
+from urllib import urlparse
+from newspaper import Article
+
+
 def get_host(url):
     parsed_uri = urlparse(url)
 

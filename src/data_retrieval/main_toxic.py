@@ -1,37 +1,8 @@
-from helpers import markup, media_eye, database
-from dotenv import load_dotenv
-from urllib.parse import urlparse
-from newspaper import Article
+from helpers import markup, media_eye, database, new
 
 url = 'https://mediascan.gadjokov.com/?page='
 
-load_dotenv()
 db = database.MongoDB()
-
-
-def get_host(url):
-    parsed_uri = urlparse(url)
-
-    return parsed_uri.netloc
-
-
-def download_article(url):
-    article = Article(url)
-    article.download()
-    article.parse()
-
-    article.nlp()
-
-    return {
-        'origin': get_host(url),
-        'title': article.title,
-        'text': article.text,
-        'authors': article.authors,
-        'publish_date': article.publish_date,
-        'tags': list(article.tags),
-        'keywords': article.keywords,
-        'summary': article.summary
-    }
 
 
 has_results = True
@@ -95,7 +66,7 @@ while has_results:
 results_len = len(results)
 for index, r in enumerate(results):
     try:
-        current_article = download_article(r['link'])
+        current_article = news.download_article(r['link'])
         current_article['link'] = r['link']
         current_article['label'] = r['tag']
         current_article['media_info'] = r['media_info']
