@@ -25,7 +25,8 @@ def _translate(input):
 
     return "".join(translated_parts)
 
-if __name__ == '__main__':
+
+def main():
     for index, article in enumerate(articles):
         try:
             print(f"{index + 1} / {len(articles)}")
@@ -43,3 +44,7 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
             continue
+
+
+if __name__ == '__main__':
+    main()

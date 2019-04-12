@@ -1,4 +1,4 @@
-from urllib import urlparse
+from urllib.parse import urlparse
 from newspaper import Article
 
 

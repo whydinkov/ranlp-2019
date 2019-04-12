@@ -1,16 +1,17 @@
 # imports, config
 import pandas as pd
-from dotenv import load_dotenv
-from data_retrieval.helpers import database
-from classifier.sklearn import pipelines
-from evaluation.compare import compare_classifiers
+from numpy.random import seed
+from src.data_retrieval.helpers import database
+from src.classifier.sklearn import pipelines
+from src.evaluation.compare import compare_classifiers
 
 from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import BernoulliNB, GaussianNB
 from sklearn.svm import LinearSVC
 
-load_dotenv()
+seed(0)
+
 db = database.MongoDB()
 
 # data retrieval
@@ -24,11 +25,9 @@ y = df['label']
 
 # models
 baseline = pipelines.make(DummyClassifier(strategy="most_frequent"))
-svc = pipelines.make(LinearSVC(random_state=0))
-nb = pipelines.make(MultinomialNB(fit_prior=True, class_prior=None))
-lr = pipelines.make(LogisticRegression(
-    random_state=0,
-    solver='sag', max_iter=200, multi_class='auto'))
+svc = pipelines.make(LinearSVC())
+nb = pipelines.make(BernoulliNB())
+lr = pipelines.make(LogisticRegression(multi_class="auto", solver='lbfgs'))
 
 # evaluation
 models = [

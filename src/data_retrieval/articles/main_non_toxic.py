@@ -1,11 +1,11 @@
-from helpers import markup, media_eye, database, news
+from src.data_retrieval.helpers import markup, media_eye, database, news
 from newspaper import build
 
 url = 'https://mediascan.gadjokov.com/?page='
 
 db = database.MongoDB()
 
-ARTICLES_COUNT = 100
+ARTICLES_COUNT = 5
 ARTICLES_PER_PAPER = 5
 NON_TOXIC_LABEL = 'нетоксичен'
 
@@ -21,7 +21,8 @@ while has_results:
         if any(page_result['tags']):
             continue  # contains at least one tag -> toxic
 
-        current_paper = build(f"https://{page_result['link']}")
+        current_paper = build(f"https://{page_result['link']}",
+                              memoize_articles=False)
 
         for article_url in current_paper.article_urls()[:ARTICLES_PER_PAPER]:
             results.append({
@@ -29,11 +30,12 @@ while has_results:
                 'media_info': page_result['media_info']
             })
 
+    print(f"Found articles links: {len(results)}")
+    print(f'Processed page: {page_number}')
+
     if len(results) >= ARTICLES_COUNT:
         break
 
-    print(f"Found articles links: {len(results)}")
-    print(f'Processed page: {page_number}')
     has_results = len(current_page_results) > 0
     page_number += 1
 

@@ -10,7 +10,8 @@ def make(classifier):
         ('feats', FeatureUnion([
             ('tfidf', Pipeline([
                 ('vect', TfidfVectorizer(stop_words=None)),
-                ('dim_red', TruncatedSVD(300))
+                ('dim_red', TruncatedSVD(300)),
+                ('norm', Normalizer())
             ]))
         ])),
         ('clf', classifier)
