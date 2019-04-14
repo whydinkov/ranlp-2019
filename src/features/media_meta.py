@@ -13,14 +13,16 @@ def _get_popularity(media_popularity):
 
 
 def _get_days(established):
-    established_date = datetime.strptime(established, '%Y-%m-%d')
-    to_date = datetime(2019, 1, 1)
+    try:
+        established_date = datetime.strptime(established, '%Y-%m-%d')
+        to_date = datetime(2019, 1, 1)
 
-    return (to_date - established_date).days
+        return (to_date - established_date).days
+    except:
+        return 0
 
 
 def get_stats(media):
-
     return {
         'editor': _has(media['editor']),
         'responsible_person': _has(media['responsible_person']),

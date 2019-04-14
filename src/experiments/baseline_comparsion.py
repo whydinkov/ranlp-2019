@@ -4,6 +4,7 @@ from numpy.random import seed
 from src.data_retrieval.helpers import database
 from src.classifier.sklearn import pipelines
 from src.evaluation.compare import compare_classifiers
+from src.preprocessing.transformator import get_df
 
 from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
@@ -14,14 +15,7 @@ seed(0)
 
 db = database.MongoDB()
 
-# data retrieval
-df = pd.DataFrame(list(db.get_articles()))
-
-# preprocesing
-data = df['text'] + df['title']
-# data= df['text'].apply(lambda x: ' text_'.join(x.split(' '))) + \
-#     df['title'].apply(lambda x: ' title_'.join(x.split(' ')))
-y = df['label']
+df = get_df(list(db.get_articles()))
 
 # models
 baseline = pipelines.make(DummyClassifier(strategy="most_frequent"))
@@ -37,4 +31,4 @@ models = [
     ('lr', lr)
 ]
 
-compare_classifiers(models, data, y, silent=False)
+compare_classifiers(models, df, df['label'], silent=False, plot=True)

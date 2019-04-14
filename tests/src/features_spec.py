@@ -1,5 +1,6 @@
 from src.features import text_meta, media_meta
-from nose.tools import eq_, assert_almost_equal as aeq_, assert_true, assert_false
+from nose.tools import eq_, assert_almost_equal as aeq_
+from nose.tools import assert_true, assert_false
 
 
 def test_text_meta():

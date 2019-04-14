@@ -9,8 +9,11 @@ def _get_bert(text):
 
 
 def main():
-    pooling = 'SEP_TOKEN'  # CLS_TOKEN, REDUCE_MEAN,
-    # REDUCE_MAX, REDUCE_MEAN_MAX, SEP_TOKEN - should be same as in server
+    pooling = 'SEP_TOKEN'  # CLS_TOKEN,
+    # REDUCE_MEAN,
+    # REDUCE_MAX,
+    # REDUCE_MEAN_MAX,
+    # SEP_TOKEN - should be same as in server
 
     db = database.MongoDB()
 
