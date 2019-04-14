@@ -1,4 +1,4 @@
-from helpers import database
+from src.data_retrieval.helpers import database
 from googletrans import Translator
 import time
 
