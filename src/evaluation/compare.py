@@ -16,7 +16,7 @@ def compare_classifiers(models, data, y, silent=False, plot=False, args={
 
     if plot:
         fig = plt.figure()
-        fig.suptitle('Algorithm Comparison')
+        # fig.suptitle('Algorithm Comparison')
         ax = fig.add_subplot(111)
         plt.boxplot(results)
         ax.set_xticklabels([name for name, model in models])

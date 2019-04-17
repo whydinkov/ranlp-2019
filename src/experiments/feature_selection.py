@@ -1,6 +1,5 @@
 # imports, config
 import pandas as pd
-from numpy.random import seed
 from src.data_retrieval.helpers import database
 from src.classifier.sklearn import pipelines
 from src.evaluation.compare import compare_classifiers
@@ -11,7 +10,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import BernoulliNB, GaussianNB
 from sklearn.svm import LinearSVC
 
-seed(0)
 
 db = database.MongoDB()
 

@@ -15,14 +15,14 @@ def get_column(column_name):
 __lsa_title = ('lsa_title', Pipeline([
     ('selector', get_column('title')),
     ('vect', TfidfVectorizer(stop_words=None)),
-    ('dim_red', TruncatedSVD(15)),
+    ('dim_red', TruncatedSVD(15, random_state=0)),
     ('norm', Normalizer())
 ]))
 
 __lsa_text = ('lsa_text', Pipeline([
     ('selector', get_column('text')),
     ('vect', TfidfVectorizer(stop_words=None)),
-    ('dim_red', TruncatedSVD(300)),
+    ('dim_red', TruncatedSVD(300, random_state=0)),
     ('norm', Normalizer())
 ]))
 
