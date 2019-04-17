@@ -12,7 +12,8 @@ def compare_classifiers(models, data, y, silent=False, plot=False, args={
     for name, model in models:
         current_model_results = cross_val_score(model, data, y, **args)
         results.append(current_model_results)
-        print(name, np.average(current_model_results))
+        if not silent:
+            print(name, np.average(current_model_results))
 
     if plot:
         fig = plt.figure()
