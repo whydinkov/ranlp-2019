@@ -1,10 +1,19 @@
-from sklearn.pipeline import Pipeline, FeatureUnion
-from sklearn.preprocessing import FunctionTransformer
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction import DictVectorizer
-from sklearn.decomposition import TruncatedSVD
-from sklearn.preprocessing import Normalizer
+import json
+import os
+from os.path import join
+
 from src.features import media_meta, text_meta
+from sklearn.preprocessing import Normalizer
+from sklearn.decomposition import TruncatedSVD
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.pipeline import Pipeline, FeatureUnion
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+with open(join(dir_path, 'stopwords.json'), 'rb') as f:
+    bg_stopwords = json.load(f)
 
 
 def get_column(column_name):
@@ -14,14 +23,14 @@ def get_column(column_name):
 
 __lsa_title = ('lsa_title', Pipeline([
     ('selector', get_column('title')),
-    ('vect', TfidfVectorizer(stop_words=None)),
+    ('vect', TfidfVectorizer(stop_words=bg_stopwords)),
     ('dim_red', TruncatedSVD(15, random_state=0)),
     ('norm', Normalizer())
 ]))
 
 __lsa_text = ('lsa_text', Pipeline([
     ('selector', get_column('text')),
-    ('vect', TfidfVectorizer(stop_words=None)),
+    ('vect', TfidfVectorizer(stop_words=bg_stopwords)),
     ('dim_red', TruncatedSVD(300, random_state=0)),
     ('norm', Normalizer())
 ]))
