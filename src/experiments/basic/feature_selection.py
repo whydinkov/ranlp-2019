@@ -41,6 +41,7 @@ feat_setups = [
     [1, 1, 0, 1, 1, 1],
     [1, 0, 1, 1, 1, 1],
     [0, 1, 1, 1, 1, 1]
+    [1, 1, 1, 1, 1, 1]
 ]
 
 for setup in feat_setups:
@@ -55,8 +56,11 @@ for setup in feat_setups:
 
     # evaluation
     models = [
-        ('svc', pipelines.make(LinearSVC(max_iter=20000, random_state=0),
-                               pipeline_options)),
+        ('clf', pipelines.make(LogisticRegression(
+            random_state=0,
+            multi_class="auto",
+            solver='lbfgs'),
+            pipeline_options)),
     ]
 
     compare_classifiers(models, df, df['label'], silent=False)
