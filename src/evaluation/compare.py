@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_validate
 
 
 def compare_classifiers(models, data, y, silent=False, plot=False, args={
@@ -10,10 +10,19 @@ def compare_classifiers(models, data, y, silent=False, plot=False, args={
 }):
     results = []
     for name, model in models:
-        current_model_results = cross_val_score(model, data, y, **args)
-        results.append(current_model_results)
+        current_model_results = cross_validate(
+            model,
+            data,
+            y,
+            return_train_score=True,
+            **args)
+
+        results.append(current_model_results['test_score'])
         if not silent:
-            print(name, np.average(current_model_results), flush=True)
+            train_score = np.average(current_model_results['train_score'])
+            test_score = np.average(current_model_results['test_score'])
+            info = f'train: {train_score}, test: {test_score}',
+            print(name, info, flush=True)
 
     if plot:
         fig = plt.figure()
