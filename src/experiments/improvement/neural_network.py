@@ -30,9 +30,9 @@ def create_model():
     model = Sequential()
 
     # model arch
-    model.add(Dense(32, activation='relu', input_dim=230))
+    model.add(Dense(16, activation='relu', input_dim=230))
     model.add(Dropout(0.2))
-    model.add(Dense(16, activation='relu'))
+    model.add(Dense(8, activation='tanh'))
     model.add(Dropout(0.2))
     model.add(Dense(9, activation='softmax'))
 
@@ -43,7 +43,10 @@ def create_model():
     return model
 
 
-nn_clf = KerasClassifier(build_fn=create_model, verbose=0)
+nn_clf = KerasClassifier(build_fn=create_model,
+                         epochs=100,
+                         batch_size=8,
+                         verbose=1)
 nn_model = pipelines.make(nn_clf)
 
 skf = StratifiedKFold(n_splits=5)
