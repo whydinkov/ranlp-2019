@@ -50,7 +50,7 @@ gs = GridSearchCV(model,
                   cv=5,
                   error_score=-1,
                   verbose=2,
-                  n_jobs=6,
+                  n_jobs=-1,
                   iid=False,
                   return_train_score=True)
 
