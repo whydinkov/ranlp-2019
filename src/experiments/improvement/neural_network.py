@@ -11,6 +11,7 @@ from sklearn.linear_model import LogisticRegression
 
 from keras.wrappers.scikit_learn import KerasClassifier
 from keras.layers import Dense, Dropout
+from keras.models import Sequential
 
 # data
 df = get_df(list(in_memory.get_articles()))
@@ -37,7 +38,7 @@ def create_model():
     return model
 
 nn_clf = KerasClassifier(build_fn=create_model)
-nn_model = pipelines.make(nn_clf, pipeline_options)
+nn_model = pipelines.make(nn_clf)
 
 # evaluation
 models = [
