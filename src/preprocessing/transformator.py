@@ -33,3 +33,28 @@ def get_df(articles, transformation_options={
         'media',
         'label'
     ])
+
+
+def oversample(df, group_size=100, preserve_distribution=False):
+    labels = df['label'].unique()
+    
+    print(df.shape)
+    print(df['label'].value_counts(normalize=True))
+
+    oversampled = None
+
+    for label in labels:
+        samples = df[df['label'] == label].sample(frac=5,
+                                                  random_state=0,
+                                                  replace=True)
+        if oversampled is None:
+            oversampled = samples
+        else:
+            oversampled = oversampled.append(samples)
+
+    print('----')
+    
+    print(oversampled.shape)
+    print(oversampled['label'].value_counts(normalize=True))
+
+    return oversampled.sample(frac=1).reset_index(drop=True)
