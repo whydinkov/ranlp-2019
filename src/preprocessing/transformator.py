@@ -35,15 +35,23 @@ def get_df(articles, transformation_options={
     ])
 
 
-def oversample(df, group_size=100, preserve_distribution=False):
+def oversample(df, n=None, frac=None):
     labels = df['label'].unique()
 
     oversampled = None
 
     for label in labels:
-        samples = df[df['label'] == label].sample(frac=5,
-                                                  random_state=0,
-                                                  replace=True)
+        if frac:
+            samples = df[df['label'] == label].sample(frac=frac,
+                                                      random_state=0,
+                                                      replace=True)
+        elif n:
+            samples = df[df['label'] == label].sample(n=n,
+                                                      random_state=0,
+                                                      replace=True)
+        else:
+            raise 'n/frac is required.'
+
         if oversampled is None:
             oversampled = samples
         else:

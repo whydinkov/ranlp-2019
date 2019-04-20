@@ -9,6 +9,8 @@ from sklearn.feature_extraction import DictVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import FunctionTransformer
 from sklearn.pipeline import Pipeline, FeatureUnion
+from sklearn.dummy import DummyClassifier
+from sklearn.linear_model import LogisticRegression
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -92,3 +94,30 @@ def make(classifier, pipeline_options={
         ('feats', FeatureUnion(feat_pipes)),
         ('clf', classifier)
     ])
+
+
+def make_default_lr():
+    estimator = LogisticRegression(random_state=0,
+                                   multi_class="auto",
+                                   solver='lbfgs')
+
+    return make(estimator)
+
+
+def make_best_lr():
+    estimator = LogisticRegression(random_state=0,
+                                   multi_class="auto",
+                                   C=10,
+                                   penalty='l1',
+                                   tol=1e-10,
+                                   # max_iter=15000,
+                                   solver='saga')
+
+    return make(estimator)
+
+
+def make_baseline():
+    estimator = DummyClassifier(strategy="most_frequent",
+                                random_state=0)
+
+    return make(estimator)

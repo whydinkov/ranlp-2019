@@ -1,5 +1,6 @@
 # imports, config
 import pandas as pd
+import numpy as np
 
 from src.data_retrieval.helpers import database
 from src.classifier.sklearn import pipelines
@@ -8,38 +9,37 @@ from src.preprocessing.transformator import get_df, oversample
 
 from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import StratifiedKFold, cross_validate
+from sklearn.metrics import accuracy_score
 
 # data
 db = database.MongoDB()
 df = get_df(list(db.get_articles()))
 
-unified_df = oversample(df, group_size=125)
-oversampled_df = oversample(df, preserve_distribution=True)
+# experiment
+OVERSAMPLE_FRAC = 2.5
+OVERSAMPLE_N = 100
 
-# models
-baseline = pipelines.make(DummyClassifier(
-    random_state=0,
-    strategy="most_frequent"))
+skf = StratifiedKFold(n_splits=5)
+scores = []
+for train_index, test_index in skf.split(df, df['label']):
+    X_train, X_test = df.iloc[train_index], df.iloc[test_index]
 
-lr = pipelines.make(LogisticRegression(
-    random_state=0,
-    multi_class="auto",
-    C=10,
-    penalty='l1',
-    tol=1e-10,
-    max_iter=15000,
-    solver='saga'))
+    clf = pipelines.make_best_lr()
 
-# evaluation
-models = [
-    ('baseline', baseline),
-    ('lr', lr)
-]
+    X_train = oversample(X_train, frac=OVERSAMPLE_FRAC)
+    # X_train = oversample(X_train, n=OVERSAMPLE_N)
 
-print('default:')
-compare_classifiers(models, df, df['label'], silent=False)
-print('oversampled:')
-compare_classifiers(models, oversampled_df, oversampled_df['label'],
-                    silent=False)
-print('oversampled - unified groups:')
-compare_classifiers(models, unified_df, unified_df['label'], silent=False)
+    clf.fit(X_train, X_train['label'])
+
+    y_pred = clf.predict(X_test)
+
+    current_acc = accuracy_score(X_test['label'], y_pred)
+    scores.append(current_acc)
+
+clf = pipelines.make_best_lr()
+
+cv_results = cross_validate(clf, df, df['label'], cv=5, scoring='accuracy')
+
+print('oversampled acc: ', np.average(scores))
+print('default acc: ', np.average(cv_results['test_score']))
