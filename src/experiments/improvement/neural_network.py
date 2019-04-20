@@ -8,6 +8,7 @@ from src.preprocessing.transformator import get_df
 
 from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import StratifiedKFold
 
 from keras.wrappers.scikit_learn import KerasClassifier
 from keras.layers import Dense, Dropout
@@ -37,14 +38,20 @@ def create_model():
 
     return model
 
+
 nn_clf = KerasClassifier(build_fn=create_model)
 nn_model = pipelines.make(nn_clf)
 
-# evaluation
-models = [
-    ('baseline', baseline),
-    ('lr', lr),
-    ('nn', nn_model)
-]
+skf = StratifiedKFold(n_splits=5)
+scores = []
+for train_index, test_index in skf.split(df, df['label']):
+    X_train, X_test = df.iloc[train_index], df.iloc[test_index]
 
-compare_classifiers(models, df, df['label'], silent=False, plot=True)
+    clf = pipelines.make(nn_clf)
+
+    clf.fit(X_train, X_train['label'])
+
+    y_pred = clf.predict(X_test)
+
+    current_acc = accuracy_score(X_test['label'], y_pred)
+    scores.append(current_acc)
