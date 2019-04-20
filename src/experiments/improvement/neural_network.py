@@ -38,7 +38,7 @@ def create_model():
     return model
 
 nn_clf = KerasClassifier(build_fn=create_model)
-nn_model = pipelines.make(, pipeline_options)
+nn_model = pipelines.make(nn_clf, pipeline_options)
 
 # evaluation
 models = [
