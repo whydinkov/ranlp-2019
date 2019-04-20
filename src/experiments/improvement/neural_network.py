@@ -26,11 +26,11 @@ def create_model():
     model = Sequential()
 
     # model arch
-    model.add(Dense(32, activation='relu', input_dim=330))
+    model.add(Dense(32, activation='relu', input_dim=283))
     model.add(Dropout(0.2))
     model.add(Dense(16, activation='relu'))
     model.add(Dropout(0.2))
-    model.add(Dense(8, activation='softmax'))
+    model.add(Dense(9, activation='softmax'))
 
     model.compile(optimizer='rmsprop',
                   loss='categorical_crossentropy',
