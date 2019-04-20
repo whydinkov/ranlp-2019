@@ -37,9 +37,6 @@ def get_df(articles, transformation_options={
 
 def oversample(df, group_size=100, preserve_distribution=False):
     labels = df['label'].unique()
-    
-    print(df.shape)
-    print(df['label'].value_counts(normalize=True))
 
     oversampled = None
 
@@ -51,10 +48,5 @@ def oversample(df, group_size=100, preserve_distribution=False):
             oversampled = samples
         else:
             oversampled = oversampled.append(samples)
-
-    print('----')
-    
-    print(oversampled.shape)
-    print(oversampled['label'].value_counts(normalize=True))
 
     return oversampled.sample(frac=1).reset_index(drop=True)

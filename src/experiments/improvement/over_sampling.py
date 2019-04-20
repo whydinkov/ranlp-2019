@@ -19,15 +19,16 @@ oversampled_df = oversample(df, preserve_distribution=True)
 # models
 baseline = pipelines.make(DummyClassifier(
     random_state=0,
-    strategy="most_frequent"), pipeline_options)
+    strategy="most_frequent"))
 
 lr = pipelines.make(LogisticRegression(
     random_state=0,
     multi_class="auto",
     C=10,
-    penality='l1',
+    penalty='l1',
     tol=1e-10,
-    solver='saga'), pipeline_options)
+    max_iter=15000,
+    solver='saga'))
 
 # evaluation
 models = [
