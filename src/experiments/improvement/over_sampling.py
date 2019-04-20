@@ -9,20 +9,12 @@ from src.preprocessing.transformator import get_df, oversample
 from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
 
+# data
 db = database.MongoDB()
-
 df = get_df(list(db.get_articles()))
 
-pipeline_options = {
-    'lsa_text': 1,
-    'lsa_title': 1,
-    'bert_text': 0,
-    'bert_title': 0,
-    'meta_article': 0,
-    'meta_media': 0
-}
-
-oversampled_df = oversample(df)
+unified_df = oversample(df, group_size=125)
+oversampled_df = oversample(df, preserve_distribution=True)
 
 # models
 baseline = pipelines.make(DummyClassifier(
@@ -32,7 +24,10 @@ baseline = pipelines.make(DummyClassifier(
 lr = pipelines.make(LogisticRegression(
     random_state=0,
     multi_class="auto",
-    solver='lbfgs'), pipeline_options)
+    C=10,
+    penality='l1',
+    tol=1e-10,
+    solver='saga'), pipeline_options)
 
 # evaluation
 models = [
@@ -40,8 +35,10 @@ models = [
     ('lr', lr)
 ]
 
+print('default:')
 compare_classifiers(models, df, df['label'], silent=False)
-
-print('with oversample')
+print('oversampled:')
 compare_classifiers(models, oversampled_df, oversampled_df['label'],
                     silent=False)
+print('oversampled - unified groups:')
+compare_classifiers(models, unified_df, unified_df['label'], silent=False)

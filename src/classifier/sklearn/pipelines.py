@@ -61,7 +61,14 @@ __meta_media = ('meta_media', Pipeline([
 ]))
 
 
-def make(classifier, pipeline_options):
+def make(classifier, pipeline_options={
+    'lsa_text': 1,
+    'lsa_title': 1,
+    'bert_text': 0,
+    'bert_title': 0,
+    'meta_article': 1,
+    'meta_media': 0
+}):
     feat_pipes = []
     if pipeline_options['lsa_title']:
         feat_pipes.append(__lsa_title)
