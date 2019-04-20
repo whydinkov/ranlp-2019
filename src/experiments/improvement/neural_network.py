@@ -1,7 +1,7 @@
 # imports, config
 import pandas as pd
 
-from src.data_retrieval.helpers import database
+from src.data_retrieval.helpers import in_memory
 from src.classifier.sklearn import pipelines
 from src.evaluation.compare import compare_classifiers
 from src.preprocessing.transformator import get_df
@@ -13,8 +13,7 @@ from keras.wrappers.scikit_learn import KerasClassifier
 from keras.layers import Dense, Dropout
 
 # data
-db = database.MongoDB()
-df = get_df(list(db.get_articles()))
+df = get_df(list(in_memory.get_articles()))
 
 # models
 baseline = pipelines.make_baseline()

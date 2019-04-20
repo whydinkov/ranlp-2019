@@ -15,21 +15,12 @@ db = database.MongoDB()
 
 df = get_df(list(db.get_articles()))
 
-pipeline_options = {
-    'lsa_text': 1,
-    'lsa_title': 1,
-    'bert_text': 0,
-    'bert_title': 0,
-    'meta_article': 1,
-    'meta_media': 0
-}
-
 # models
 model = pipelines.make(LogisticRegression(
     random_state=0,
     multi_class="auto",
     solver='lbfgs'
-), pipeline_options)
+))
 
 # evaluation
 param_grid = {
