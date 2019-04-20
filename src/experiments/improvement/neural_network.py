@@ -17,17 +17,8 @@ db = database.MongoDB()
 df = get_df(list(db.get_articles()))
 
 # models
-baseline = pipelines.make(DummyClassifier(
-    random_state=0,
-    strategy="most_frequent"))
-
-lr = pipelines.make(LogisticRegression(
-    random_state=0,
-    multi_class="auto",
-    C=10,
-    penality='l1',
-    tol=1e-10,
-    solver='saga'))
+baseline = pipelines.make_baseline()
+lr = pipelines.make_best_lr()
 
 
 def create_model():
@@ -46,7 +37,7 @@ def create_model():
 
     return model
 
-
+nn_clf = KerasClassifier(build_fn=create_model)
 nn_model = pipelines.make(, pipeline_options)
 
 # evaluation
