@@ -9,6 +9,7 @@ from src.preprocessing.transformator import get_df
 from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import accuracy_score
 
 from keras.wrappers.scikit_learn import KerasClassifier
 from keras.layers import Dense, Dropout
@@ -39,7 +40,7 @@ def create_model():
     return model
 
 
-nn_clf = KerasClassifier(build_fn=create_model)
+nn_clf = KerasClassifier(build_fn=create_model, verbose=0)
 nn_model = pipelines.make(nn_clf)
 
 skf = StratifiedKFold(n_splits=5)
