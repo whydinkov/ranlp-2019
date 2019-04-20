@@ -33,13 +33,15 @@ model = pipelines.make(LogisticRegression(
 
 # evaluation
 param_grid = {
-    'feats__lsa_title__vect__min_df': [1, 2],  # 1
-    'feats__lsa_title__vect__ngram_range': [(1, 1), (1, 2)],  # (1, 1)
-    'feats__lsa_text__vect__min_df': [1, 2, 5],  # 1
-    'feats__lsa_text__vect__ngram_range': [(1, 1), (1, 2), (1, 3)],
-    # 'clf__penalty': ['l1', 'l2'],  # l2
+    # 'feats__lsa_title__vect__min_df': [1, 2],  # 1
+    # 'feats__lsa_title__vect__ngram_range': [(1, 1), (1, 2)],  # (1, 1)
+    # 'feats__lsa_text__vect__min_df': [1, 2, 5],  # 1
+    # 'feats__lsa_text__vect__ngram_range': [(1, 1), (1, 2), (1, 3)],
+
+    'clf__penalty': ['l1', 'l2'],  # l2
     'clf__tol': [1e-10, 1e-8, 1e-4, 1e-2, 1e-1],  # 1e-4
-    'clf__C': [0.1, 0.5, 1, 5, 10],  # 1
+    'clf__C': [0.1, 0.5, 1, 5, 10],  # 1,
+    'clf__solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga']
 }
 
 gs = GridSearchCV(model,
