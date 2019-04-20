@@ -26,7 +26,7 @@ def create_model():
     model = Sequential()
 
     # model arch
-    model.add(Dense(32, activation='relu', input_dim=283))
+    model.add(Dense(32, activation='relu', input_dim=230))
     model.add(Dropout(0.2))
     model.add(Dense(16, activation='relu'))
     model.add(Dropout(0.2))

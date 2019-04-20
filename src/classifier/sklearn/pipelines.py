@@ -33,7 +33,7 @@ __lsa_title = ('lsa_title', Pipeline([
 __lsa_text = ('lsa_text', Pipeline([
     ('selector', get_column('text')),
     ('vect', TfidfVectorizer(stop_words=bg_stopwords)),
-    ('dim_red', TruncatedSVD(300, random_state=0)),
+    ('dim_red', TruncatedSVD(200, random_state=0)),
     ('norm', Normalizer())
 ]))
 
@@ -61,6 +61,36 @@ __meta_media = ('meta_media', Pipeline([
     ('vect', DictVectorizer()),
     ('norm', Normalizer())
 ]))
+
+
+def make_transformator(pipeline_options={
+    'lsa_text': 1,
+    'lsa_title': 1,
+    'bert_text': 0,
+    'bert_title': 0,
+    'meta_article': 1,
+    'meta_media': 0
+}):
+    feat_pipes = []
+    if pipeline_options['lsa_title']:
+        feat_pipes.append(__lsa_title)
+
+    if pipeline_options['lsa_text']:
+        feat_pipes.append(__lsa_text)
+
+    if pipeline_options['bert_title']:
+        feat_pipes.append(__bert_title)
+
+    if pipeline_options['bert_text']:
+        feat_pipes.append(__bert_text)
+
+    if pipeline_options['meta_article']:
+        feat_pipes.append(__meta_article)
+
+    if pipeline_options['meta_media']:
+        feat_pipes.append(__meta_media)
+
+    return FeatureUnion(feat_pipes)
 
 
 def make(classifier, pipeline_options={
