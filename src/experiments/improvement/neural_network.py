@@ -1,5 +1,6 @@
 # imports, config
 import pandas as pd
+import numpy as np
 
 from src.data_retrieval.helpers import in_memory
 from src.classifier.sklearn import pipelines
@@ -14,6 +15,8 @@ from sklearn.metrics import accuracy_score
 from keras.wrappers.scikit_learn import KerasClassifier
 from keras.layers import Dense, Dropout
 from keras.models import Sequential
+
+environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # data
 df = get_df(list(in_memory.get_articles()))
@@ -56,3 +59,5 @@ for train_index, test_index in skf.split(df, df['label']):
 
     current_acc = accuracy_score(X_test['label'], y_pred)
     scores.append(current_acc)
+
+print('NN acc: ', np.average(scores))
