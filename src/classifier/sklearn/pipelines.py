@@ -140,6 +140,7 @@ def make_best_lr():
                                    C=10,
                                    penalty='l1',
                                    tol=1e-10,
+                                   n_jobs=-1,
                                    # max_iter=15000,
                                    solver='saga')
 
