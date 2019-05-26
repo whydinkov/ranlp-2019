@@ -1,5 +1,7 @@
 # imports, config
 import pandas as pd
+import numpy as np
+
 from src.data_retrieval.helpers import database
 from src.classifier.sklearn import pipelines
 from src.evaluation.compare import compare_classifiers
@@ -40,7 +42,7 @@ feat_setups = [
     [1, 1, 1, 0, 1, 1],
     [1, 1, 0, 1, 1, 1],
     [1, 0, 1, 1, 1, 1],
-    [0, 1, 1, 1, 1, 1]
+    [0, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1]
 ]
 
@@ -63,4 +65,5 @@ for setup in feat_setups:
             pipeline_options)),
     ]
 
-    compare_classifiers(models, df, df['label'], silent=False)
+    r = compare_classifiers(models, df, df['label'], silent=True)
+    print(np.average(r))
