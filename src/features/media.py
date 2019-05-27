@@ -1,4 +1,5 @@
 from datetime import datetime
+import math
 
 
 def _has(position):
@@ -22,12 +23,25 @@ def _get_days(established):
         return 0
 
 
-def get_stats(media):
+def get_stats_cat(media):
     return {
         'editor': _has(media['editor']),
         'responsible_person': _has(media['responsible_person']),
         'bg_server': 'Bulgaria' in media['server_in'],
-        'popularity': _get_popularity(media['popularity']),
         'domain_person': any(media['domain_responsible_person']),
-        'days_existing': _get_days(media['established'])
     }
+
+
+def get_stats_num(media):
+    days = _get_days(media['established'])
+
+    if days == 0:
+        return {
+            'popularity': _get_popularity(media['popularity']),
+            'days_existing': 0
+        }
+    else:
+        return {
+            'popularity': _get_popularity(media['popularity']),
+            'days_existing': math.log(_get_days(media['established']), 10)
+        }

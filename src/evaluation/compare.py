@@ -18,16 +18,16 @@ def compare_classifiers(models, data, y, silent=False, plot=False, args={
         #     return_train_score=True,
         #     **args)
 
-        pred = cross_val_predict(
-            model,
-            data,
-            y,
-            cv=5,
-            method='predict_proba')
+        # pred = cross_val_predict(
+        #     model,
+        #     data,
+        #     y,
+        #     cv=5,
+        #     method='predict_proba')
 
         current_model_results = cross_validate(
-            LogisticRegression(),
-            pred,
+            model,
+            data,
             y,
             return_train_score=True,
             **args)
