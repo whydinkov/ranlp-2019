@@ -1,8 +1,12 @@
 # Detecting toxicity in bulgarian news articles
 
+## Motivation
+_TODO: Conference link_
+_TODO: Paper link_
+
 ## Dataset
 
-Contains 237 articles, manually labelled by [Krasimir Gadjokov](https://www.gadjokov.com/) between 2012-2017. As well as 92 non-toxic articles fetched from popular bulgaria media outlets in 2019.
+Contains 221 articles, manually labelled by [Krasimir Gadjokov](https://www.gadjokov.com/) between 2011-2017. As well as 96 non-toxic articles fetched from popular bulgarian media outlets in 2019.
 
 Toxicity categories are as follows:
 
@@ -17,28 +21,39 @@ Toxicity categories are as follows:
 | анти-демократичен | [click here](http://budnaera.com/201701f/17010944.html) |
 | про-авториратерен | [click here](http://duma.bg/node/37323) |
 | _нетоксичен_ | [click here](https://www.actualno.com/bgfootball/nov-stadion-za-cska-no-ima-seriozni-problemi-za-reshavane-news_737893.html)
+
 Golden labels source: https://mediascan.gadjokov.com/
 
-Distributed in following order:
+<img src="https://user-images.githubusercontent.com/493912/56492801-345c4600-64ed-11e9-8130-327a73911526.png" width="400px" />
 
-![distribution](https://user-images.githubusercontent.com/493912/53694505-1f4a1d00-3db0-11e9-9f3b-097a2180eb58.png)
+Dataset can be downloaded from [here]().
+
+Detailed information about dataset, can be found in [docs]().
+
+## Features
+
+test
 
 
-## Models
-
-Approach is to compare different categories of algorithms to conclude if there is any actual improvement with overall classification problem. So models, used are:
-
- * Baselines
- 
- * Classifiers
- 
- * SOTA 
+| Type | Embeddings size |
+|--------|-------|
+| LSA (title) | 15 |
+| LSA (text)  | 200 |
+| BERT (title) | 768 | 
+| BERT (text) | 768 |
+| META (article) | 15 |
+| META (media) | 6 |
 
 
 ## Experiment results
 
+| Type | Overall accuracy |
+|--------|-------|
+| Baseline | 30.29% |
+| Linear Regression  | 54.33% |
+| Linear Regression (tuned) | 55.65% | 
+| Linear Regression (improved) + Oversammpled dataset | 56.21% |
+| Neural network | 51.10% |
+
 
 ## References
-* Gadjokov
-* sklearn
-* bert
