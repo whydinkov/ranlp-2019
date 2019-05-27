@@ -36,8 +36,6 @@ all_feats.append('meta_media')
 
 models = []
 
-models.add(('meta_media', ranlp_pipelines.make(clf, ['meta_media'])))
-models.add(('all', ranlp_pipelines.make(clf, all_feats)))
 
 for feature_set in feature_sets:
     title_model = (feature_set + '_title',
@@ -50,12 +48,17 @@ for feature_set in feature_sets:
     title_text_cos_model = (feature_set + '_title_text_cos', ranlp_pipelines.make(clf,
                                                                                   [feature_set + '_title', feature_set + '_text', feature_set + '_cos']))
 
-    models.add(title_model)
-    models.add(text_model)
-    models.add(title_text_model)
+    models.append(title_model)
+    models.append(text_model)
+    models.append(title_text_model)
 
     if feature_set != 'bg_styl':
-        models.add(title_text_cos_model)
+        models.append(title_text_cos_model)
+    else:
+        models.append(
+            ('meta_media', ranlp_pipelines.make(clf, ['meta_media'])))
+
+models.append(('all', ranlp_pipelines.make(clf, all_feats)))
 
 if __name__ == '__main__':
     compare_classifiers(models, df, df['label'], silent=False, plot=False)

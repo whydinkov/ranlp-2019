@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import cross_validate, cross_val_predict
-from sklearn.linear_model import LogisticRegression
 
 
 def compare_classifiers(models, data, y, silent=False, plot=False, args={
@@ -11,19 +10,9 @@ def compare_classifiers(models, data, y, silent=False, plot=False, args={
 }):
     results = []
     for name, model in models:
-        # current_model_results = cross_validate(
-        #     model,
-        #     data,
-        #     y,
-        #     return_train_score=True,
-        #     **args)
+        trf = model.named_steps['feats']
 
-        # pred = cross_val_predict(
-        #     model,
-        #     data,
-        #     y,
-        #     cv=5,
-        #     method='predict_proba')
+        dimension = trf.fit_transform(data).shape[1]
 
         current_model_results = cross_validate(
             model,
@@ -39,7 +28,7 @@ def compare_classifiers(models, data, y, silent=False, plot=False, args={
             test_f1 = np.average(current_model_results['test_f1_macro'])
             info = (f'{train_acc}\t{test_acc}\t{train_f1}\t{test_f1}')
 
-            print(f'{info}', flush=True)
+            print(f'{name}\t{dimension}\t{info}', flush=True)
 
     if plot:
         fig = plt.figure()

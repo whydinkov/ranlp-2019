@@ -43,27 +43,27 @@ def get_df(articles, transformation_options={
         en_elmo_text = article['features']['en']['ELMO']['text']
         en_elmo_cos = _cos_sim(en_elmo_title, en_elmo_text)
 
-        bg_styl_title = list(get_stats_text(article['title']).values())
+        bg_styl_title = list(get_stats_title(article['title']).values())
         bg_styl_text = list(get_stats_text(article['text']).values())
 
         media_cat = get_stats_cat(article['media_info'])
         media_num = get_stats_num(article['media_info'])
 
-        bg_bert_title = article['predictions']['bg_bert_title']
-        bg_bert_text = article['predictions']['bg_bert_text']
-        bg_xlm_title = article['predictions']['bg_xlm_title']
-        bg_xlm_text = article['predictions']['bg_xlm_text']
-        article_meta = article['predictions']['article_meta']
-        bg_styl_title = article['predictions']['bg_styl_title']
-        bg_styl_text = article['predictions']['bg_styl_text']
-        en_use_title = article['predictions']['en_use_title']
-        en_use_text = article['predictions']['en_use_text']
-        en_nela_title = article['predictions']['en_nela_title']
-        en_nela_text = article['predictions']['en_nela_text']
-        en_bert_title = article['predictions']['en_bert_title']
-        en_bert_text = article['predictions']['en_bert_text']
-        en_elmo_title = article['predictions']['en_elmo_title']
-        en_elmo_text = article['predictions']['en_elmo_text']
+        bg_bert_title_pred = article['predictions']['bg_bert_title']
+        bg_bert_text_pred = article['predictions']['bg_bert_text']
+        bg_xlm_title_pred = article['predictions']['bg_xlm_title']
+        bg_xlm_text_pred = article['predictions']['bg_xlm_text']
+        meta_media_pred = article['predictions']['meta_media']
+        bg_styl_title_pred = article['predictions']['bg_styl_title']
+        bg_styl_text_pred = article['predictions']['bg_styl_text']
+        en_use_title_pred = article['predictions']['en_use_title']
+        en_use_text_pred = article['predictions']['en_use_text']
+        en_nela_title_pred = article['predictions']['en_nela_title']
+        en_nela_text_pred = article['predictions']['en_nela_text']
+        en_bert_title_pred = article['predictions']['en_bert_title']
+        en_bert_text_pred = article['predictions']['en_bert_text']
+        en_elmo_title_pred = article['predictions']['en_elmo_title']
+        en_elmo_text_pred = article['predictions']['en_elmo_text']
 
         results.append([
             article['title'],
@@ -94,10 +94,21 @@ def get_df(articles, transformation_options={
             en_bert_cos,
             media_cat,
             media_num,
-            predictions,
-            article_meta_media,
+            bg_bert_title_pred,
+            bg_bert_text_pred,
+            bg_xlm_title_pred,
+            bg_xlm_text_pred,
+            meta_media_pred,
             bg_styl_title_pred,
             bg_styl_text_pred,
+            en_use_title_pred,
+            en_use_text_pred,
+            en_nela_title_pred,
+            en_nela_text_pred,
+            en_bert_title_pred,
+            en_bert_text_pred,
+            en_elmo_title_pred,
+            en_elmo_text_pred,
             article['media_info'],
             article['label']
         ])
@@ -128,21 +139,21 @@ def get_df(articles, transformation_options={
         'en_bert_cos',
         'media_cat',
         'media_num',
-        'bg_bert_title',
-        'bg_bert_text',
-        'bg_xlm_title',
-        'bg_xlm_text',
-        'en_use_title',
-        'article_meta',
-        'bg_styl_title',
-        'bg_styl_text',
-        'en_use_text',
-        'en_nela_title',
-        'en_nela_text',
-        'en_bert_title',
-        'en_bert_text',
-        'en_elmo_title',
-        'en_elmo_text',
+        'bg_bert_title_pred',
+        'bg_bert_text_pred',
+        'bg_xlm_title_pred',
+        'bg_xlm_text_pred',
+        'meta_media_pred',
+        'bg_styl_title_pred',
+        'bg_styl_text_pred',
+        'en_use_title_pred',
+        'en_use_text_pred',
+        'en_nela_title_pred',
+        'en_nela_text_pred',
+        'en_bert_title_pred',
+        'en_bert_text_pred',
+        'en_elmo_title_pred',
+        'en_elmo_text_pred',
         'media',
         'label'
     ])

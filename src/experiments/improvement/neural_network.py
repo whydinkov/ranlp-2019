@@ -26,17 +26,17 @@ baseline = pipelines.make_baseline()
 lr = pipelines.make_best_lr()
 
 
-def create_model():
+def create_model(input_dim):
     model = Sequential()
 
     # model arch
-    model.add(Dense(16, activation='relu', input_dim=230))
-    model.add(Dropout(0.2))
-    model.add(Dense(8, activation='tanh'))
-    model.add(Dropout(0.2))
+    model.add(Dense(16, activation='relu', input_dim=input_dim))
+    model.add(Dropout(0.35))
+    model.add(Dense(8, activation='relu'))
+    model.add(Dropout(0.3))
     model.add(Dense(9, activation='softmax'))
 
-    model.compile(optimizer='rmsprop',
+    model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 

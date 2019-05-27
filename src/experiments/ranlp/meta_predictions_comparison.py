@@ -17,7 +17,7 @@ db = database.MongoDB()
 df = get_df(list(db.get_articles()))
 
 clf = LogisticRegression(
-    C=0.05,
+    C=1.5,
     random_state=0,
     multi_class="auto",
     solver='liblinear',
@@ -28,10 +28,10 @@ features = [
     'bg_bert_text',
     'bg_xlm_title',
     'bg_xlm_text',
-    'en_use_title',
-    'article_meta',
+    'meta_media',
     'bg_styl_title',
     'bg_styl_text',
+    'en_use_title',
     'en_use_text',
     'en_nela_title',
     'en_nela_text',
@@ -45,10 +45,10 @@ features = [
 models = []
 
 for feature in features:
-    name = f'pred_{feature}'
-    models.append((name, ))
+    name = f'{feature}_pred'
+    models.append((name, ranlp_pipelines.make(clf, [name])))
 
-models.append(('pred_all', ranlp_pipelines.make(clf,
-                                                [f'pred_{x}' fox in features])))
+all_features = [f'{x}_pred' for x in features]
+models.append(('pred_all', ranlp_pipelines.make(clf, all_features)))
 
 compare_classifiers(models, df, df['label'], silent=False, plot=False)
