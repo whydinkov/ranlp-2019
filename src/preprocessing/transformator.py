@@ -56,6 +56,8 @@ def get_df(articles, transformation_options={
         meta_media_pred = article['predictions']['meta_media']
         bg_styl_title_pred = article['predictions']['bg_styl_title']
         bg_styl_text_pred = article['predictions']['bg_styl_text']
+        bg_lsa_title_pred = article['predictions']['bg_lsa_title']
+        bg_lsa_text_pred = article['predictions']['bg_lsa_text']
         en_use_title_pred = article['predictions']['en_use_title']
         en_use_text_pred = article['predictions']['en_use_text']
         en_nela_title_pred = article['predictions']['en_nela_title']
@@ -101,6 +103,8 @@ def get_df(articles, transformation_options={
             meta_media_pred,
             bg_styl_title_pred,
             bg_styl_text_pred,
+            bg_lsa_title_pred,
+            bg_lsa_text_pred,
             en_use_title_pred,
             en_use_text_pred,
             en_nela_title_pred,
@@ -146,6 +150,8 @@ def get_df(articles, transformation_options={
         'meta_media_pred',
         'bg_styl_title_pred',
         'bg_styl_text_pred',
+        'bg_lsa_title_pred',
+        'bg_lsa_text_pred',
         'en_use_title_pred',
         'en_use_text_pred',
         'en_nela_title_pred',

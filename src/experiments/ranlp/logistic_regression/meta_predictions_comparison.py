@@ -32,6 +32,8 @@ features = [
     'meta_media',
     'bg_styl_title',
     'bg_styl_text',
+    'bg_lsa_title',
+    'bg_lsa_text',
     'en_use_title',
     'en_use_text',
     'en_nela_title',
@@ -43,7 +45,8 @@ features = [
 ]
 
 all_features = [f'{x}_pred' for x in features]
-for oversampler in [None, SMOTE(), ADASYN(), RandomOverSampler(random_state=0)]:
-    print('Oversampler: ', oversampler)
-    model = ('pred_all', ranlp_pipelines.make(clf, oversampler, all_features))
+# oversamplers = [None, SMOTE(), ADASYN(), RandomOverSampler(random_state=0)]
+oversamplers = [None]
+for oversampler in oversamplers:
+    model = ('pred_all', ranlp_pipelines.make(clf, all_features, oversampler))
     compare_classifiers([model], df, df['label'], silent=False, plot=False)

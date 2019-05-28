@@ -21,14 +21,16 @@ clf = LogisticRegression(
     solver='liblinear',
     max_iter=20000)
 
-feature_sets = ['bg_bert', 'bg_xlm', 'en_use',
-                'en_nela', 'en_bert', 'en_elmo', 'bg_styl']
+# feature_sets = ['bg_bert', 'bg_xlm', 'en_use',
+#                 'en_nela', 'en_bert', 'en_elmo', 'bg_styl']
+
+feature_sets = ['bg_lsa']
 
 all_feats = []
 for feature_set in feature_sets:
     all_feats.append(feature_set + '_title')
     all_feats.append(feature_set + '_text')
-    if feature_set != 'bg_styl':
+    if feature_set not in ['bg_styl', 'bg_lsa']:
         all_feats.append(feature_set + '_cos')
 all_feats.append('meta_media')
 

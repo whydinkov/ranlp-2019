@@ -23,17 +23,18 @@ clf = LogisticRegression(
     solver='liblinear',
     max_iter=20000)
 
-feature_sets = ['bg_bert', 'bg_xlm', 'bg_styl',
+feature_sets = ['bg_bert', 'bg_xlm', 'bg_styl', 'bg_lsa',
                 'en_use', 'en_nela', 'en_bert', 'en_elmo']
 
 all_feats = []
 for feature_set in feature_sets:
     all_feats.append(feature_set + '_title')
     all_feats.append(feature_set + '_text')
-    if feature_set != 'bg_styl':
+    if feature_set not in ['bg_styl', 'bg_lsa']:
         all_feats.append(feature_set + '_cos')
 all_feats.append('meta_media')
-
+bg_feats = [x for x in all_feats if x.startswith('bg_')] + ['meta_media']
+en_feats = [x for x in all_feats if x.startswith('en_')] + ['meta_media']
 models = []
 
 
@@ -52,13 +53,15 @@ for feature_set in feature_sets:
     models.append(text_model)
     models.append(title_text_model)
 
-    if feature_set != 'bg_styl':
+    if feature_set not in ['bg_styl', 'bg_lsa']:
         models.append(title_text_cos_model)
     else:
         models.append(
             ('meta_media', ranlp_pipelines.make(clf, ['meta_media'])))
 
 models.append(('all', ranlp_pipelines.make(clf, all_feats)))
+models.append(('all_bg', ranlp_pipelines.make(clf, bg_feats)))
+models.append(('all_en', ranlp_pipelines.make(clf, en_feats)))
 
 if __name__ == '__main__':
     compare_classifiers(models, df, df['label'], silent=False, plot=False)
