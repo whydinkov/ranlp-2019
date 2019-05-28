@@ -1,5 +1,6 @@
 from sklearn.preprocessing import FunctionTransformer
-from sklearn.pipeline import Pipeline, FeatureUnion
+from sklearn.pipeline import FeatureUnion
+from imblearn.pipeline import Pipeline
 from sklearn.preprocessing import Normalizer
 from sklearn.feature_extraction import DictVectorizer
 from keras.wrappers.scikit_learn import KerasClassifier
@@ -31,7 +32,7 @@ _meta_media = ('meta_media', FeatureUnion([
 ]))
 
 
-def make(classifier, columns):
+def make(classifier, oversampler, columns):
     feat_pipes = []
 
     for column in columns:
@@ -39,12 +40,17 @@ def make(classifier, columns):
             feat_pipes.append(_meta_media)
         else:
             feat_pipes.append(_pipe_column(column))
-
-    return Pipeline([
-        ('feats', FeatureUnion(feat_pipes)),
-        ('clf', classifier)
-    ])
-
+    if oversampler:
+        return Pipeline([
+            ('feats', FeatureUnion(feat_pipes)),
+            ('oversampler', oversampler),
+            ('clf', classifier)
+        ])
+    else:
+        return Pipeline([
+            ('feats', FeatureUnion(feat_pipes)),
+            ('clf', classifier)
+        ])
 
 def _mlp_arch(input_dim):
     model = Sequential()

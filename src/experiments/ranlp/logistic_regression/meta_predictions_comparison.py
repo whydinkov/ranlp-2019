@@ -9,6 +9,7 @@ from src.preprocessing.transformator import get_df
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.exceptions import UndefinedMetricWarning
+from imblearn.over_sampling import SMOTE, ADASYN, RandomOverSampler
 
 warnings.filterwarnings("ignore", category=UndefinedMetricWarning)
 
@@ -41,14 +42,8 @@ features = [
     'en_elmo_text',
 ]
 
-
-models = []
-
-for feature in features:
-    name = f'{feature}_pred'
-    models.append((name, ranlp_pipelines.make(clf, [name])))
-
 all_features = [f'{x}_pred' for x in features]
-models.append(('pred_all', ranlp_pipelines.make(clf, all_features)))
-
-compare_classifiers(models, df, df['label'], silent=False, plot=False)
+for oversampler in [None, SMOTE(), ADASYN(), RandomOverSampler(random_state=0)]:
+    print('Oversampler: ', oversampler)
+    model = ('pred_all', ranlp_pipelines.make(clf, oversampler, all_features))
+    compare_classifiers([model], df, df['label'], silent=False, plot=False)
