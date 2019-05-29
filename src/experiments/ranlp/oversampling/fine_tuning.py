@@ -60,7 +60,7 @@ for name, feature_list in features:
     model = ranlp_pipelines.make(LogisticRegression(
         random_state=0,
         multi_class="auto",
-        max_iter=25000
+        max_iter=2500
     ), feature_list)
 
     gs = GridSearchCV(model,
