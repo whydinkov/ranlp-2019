@@ -11,9 +11,9 @@ from sklearn.feature_extraction import DictVectorizer
 from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from keras.wrappers.scikit_learn import KerasClassifier
-from keras.layers import Dense, Dropout
-from keras.models import Sequential
+# from keras.wrappers.scikit_learn import KerasClassifier
+# from keras.layers import Dense, Dropout
+# from keras.models import Sequential
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -59,7 +59,7 @@ __lsa_text = ('lsa_text', Pipeline([
 ]))
 
 
-def make(classifier, columns, oversampler=None):
+def make(classifier, columns, oversampler=None, clf_params={}):
     feat_pipes = []
 
     for column in columns:
@@ -71,18 +71,29 @@ def make(classifier, columns, oversampler=None):
             feat_pipes.append(__lsa_text)
         else:
             feat_pipes.append(_pipe_column(column))
+
+    default_params = {
+        'clf__max_iter': 1000,
+        'clf__random_state': 0,
+        'clf__multi_class': "auto"
+    }
+
     if oversampler:
-        return Pipeline([
+        pipeline = Pipeline([
             ('feats', FeatureUnion(feat_pipes)),
             ('oversampler', oversampler),
             ('clf', classifier)
         ])
     else:
-        return Pipeline([
+        pipeline = Pipeline([
             ('feats', FeatureUnion(feat_pipes)),
             ('clf', classifier)
         ])
 
+    params = {**default_params, **clf_params}
+    pipeline.set_params(**params)
+
+    return pipeline
 
 # def _mlp_arch(input_dim):
 #     model = Sequential()
