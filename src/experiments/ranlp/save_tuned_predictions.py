@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from src.data_retrieval.helpers import database
+from src.data_retrieval.helpers import in_memory
 from src.classifier.sklearn import ranlp_pipelines
 from src.evaluation.compare import compare_classifiers
 from src.preprocessing.transformator import get_df
@@ -9,16 +9,17 @@ from sklearn.model_selection import cross_val_predict, GridSearchCV
 
 from sklearn.linear_model import LogisticRegression
 
-db = database.MongoDB()
+#db = database.MongoDB()
 
-articles = list(db.get_articles())
+#articles = list(db.get_articles())
+articles = in_memory.get_articles()
 df = get_df(articles)
 
 clf = LogisticRegression()
 
 feature_sets = [
-    'bg_bert',
-    # 'bg_xlm',
+    #'bg_bert',
+     'bg_xlm',
     # 'bg_styl',
     # 'bg_lsa',
     # 'en_use',
@@ -31,7 +32,7 @@ all_feats = []
 for feature_set in feature_sets:
     all_feats.append(feature_set + '_title')
     all_feats.append(feature_set + '_text')
-all_feats.append('meta_media')
+#all_feats.append('meta_media')
 
 
 param_grid = {
@@ -59,18 +60,18 @@ for feature_set in all_feats:
     print(f"{feature_set} | BEST SCORE: {gs.best_score_}")
     print(f"{feature_set} | BEST PARAMS: {gs.best_params_}")
 
-    pred = cross_val_predict(gs.best_estimator_,
-                             df,
-                             df['label'],
-                             cv=5,
-                             method='predict_proba')
-
-    for article, article_pred in zip(articles, pred):
-        if 'tuned_predictions' not in article:
-            article['tuned_predictions'] = {}
-
-        article['tuned_predictions'][feature_set] = article_pred.tolist()
-
-        db.save_article(article)
+ #   pred = cross_val_predict(gs.best_estimator_,
+ #                            df,
+ #                            df['label'],
+ #                            cv=5,
+ #                            method='predict_proba')
+ #
+ #   for article, article_pred in zip(articles, pred):
+ #       if 'tuned_predictions' not in article:
+ #           article['tuned_predictions'] = {}
+ #
+ #       article['tuned_predictions'][feature_set] = article_pred.tolist()
+ #
+ #       db.save_article(article)
 
     print(f'Done for {feature_set}')
