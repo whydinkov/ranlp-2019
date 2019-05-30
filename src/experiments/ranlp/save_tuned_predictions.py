@@ -16,8 +16,16 @@ df = get_df(articles)
 
 clf = LogisticRegression()
 
-feature_sets = ['bg_bert', 'bg_xlm', 'bg_styl', 'bg_lsa',
-                'en_use', 'en_nela', 'en_bert', 'en_elmo']
+feature_sets = [
+    'bg_bert',
+    # 'bg_xlm',
+    # 'bg_styl',
+    # 'bg_lsa',
+    # 'en_use',
+    # 'en_nela',
+    # 'en_bert',
+    # 'en_elmo'
+]
 
 all_feats = []
 for feature_set in feature_sets:
@@ -50,7 +58,6 @@ for feature_set in all_feats:
 
     print(f"{feature_set} | BEST SCORE: {gs.best_score_}")
     print(f"{feature_set} | BEST PARAMS: {gs.best_params_}")
-
 
     pred = cross_val_predict(gs.best_estimator_,
                              df,
