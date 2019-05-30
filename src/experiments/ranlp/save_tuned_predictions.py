@@ -48,6 +48,10 @@ for feature_set in all_feats:
 
     gs.fit(df, df['label'])
 
+    print(f"{feature_set} | BEST SCORE: {gs.best_score_}")
+    print(f"{feature_set} | BEST PARAMS: {gs.best_params_}")
+
+
     pred = cross_val_predict(gs.best_estimator_,
                              df,
                              df['label'],
