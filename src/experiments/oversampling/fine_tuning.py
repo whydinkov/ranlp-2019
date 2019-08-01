@@ -5,7 +5,7 @@ from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
 from src.preprocessing.transformator import get_df
 from src.evaluation.compare import compare_classifiers
-from src.classifier.sklearn import ranlp_pipelines
+from src.classifier.sklearn import pipelines
 from src.data_retrieval.helpers import database
 import pandas as pd
 
@@ -57,7 +57,7 @@ param_grid = {
 }
 
 for name, feature_list in features:
-    model = ranlp_pipelines.make(LogisticRegression(
+    model = pipelines.make(LogisticRegression(
         random_state=0,
         multi_class="auto",
         max_iter=1000

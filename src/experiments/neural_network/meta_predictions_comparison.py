@@ -3,7 +3,7 @@ import pandas as pd
 import warnings
 
 from src.data_retrieval.helpers import database
-from src.classifier.sklearn import ranlp_pipelines
+from src.classifier.sklearn import pipelines
 from src.evaluation.compare import compare_classifiers
 from src.preprocessing.transformator import get_df
 
@@ -34,9 +34,9 @@ models = []
 
 for feature in features:
     name = f'{feature}_pred'
-    models.append((name, ranlp_pipelines.make_nn(9, [name])))
+    models.append((name, pipelines.make_nn(9, [name])))
 
 all_features = [f'{x}_pred' for x in features]
-models.append(('pred_all', ranlp_pipelines.make_nn(135, all_features)))
+models.append(('pred_all', pipelines.make_nn(135, all_features)))
 
 compare_classifiers(models, df, df['label'], silent=False, plot=False)

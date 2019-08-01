@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 from src.data_retrieval.helpers import database
-from src.classifier.sklearn import ranlp_pipelines
+from src.classifier.sklearn import pipelines
 from src.evaluation.compare import compare_classifiers
 from src.preprocessing.transformator import get_df
 from sklearn.model_selection import cross_val_predict
@@ -35,7 +35,7 @@ for feature_set in feature_sets:
 all_feats.append('meta_media')
 
 for feature_set in all_feats:
-    model = ranlp_pipelines.make(clf, [feature_set])
+    model = pipelines.make(clf, [feature_set])
     pred = cross_val_predict(model,
                              df,
                              df['label'],

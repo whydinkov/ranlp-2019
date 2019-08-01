@@ -3,7 +3,7 @@ import pandas as pd
 import warnings
 
 from src.data_retrieval.helpers import database
-from src.classifier.sklearn import ranlp_pipelines
+from src.classifier.sklearn import pipelines
 from src.evaluation.compare import compare_classifiers
 from src.preprocessing.transformator import get_df
 
@@ -48,5 +48,5 @@ all_features = [f'{x}_pred' for x in features]
 # oversamplers = [None, SMOTE(), ADASYN(), RandomOverSampler(random_state=0)]
 oversamplers = [None]
 for oversampler in oversamplers:
-    model = ('pred_all', ranlp_pipelines.make(clf, all_features, oversampler))
+    model = ('pred_all', pipelines.make(clf, all_features, oversampler))
     compare_classifiers([model], df, df['label'], silent=False, plot=False)

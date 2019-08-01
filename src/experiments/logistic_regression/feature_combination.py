@@ -5,7 +5,7 @@ from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
 from src.preprocessing.transformator import get_df
 from src.evaluation.compare import compare_classifiers
-from src.classifier.sklearn import ranlp_pipelines
+from src.classifier.sklearn import pipelines
 from src.data_retrieval.helpers import database
 import pandas as pd
 
@@ -43,7 +43,7 @@ models = []
 for name, feature_list in features:
     clf = LogisticRegression()
     clf_params = {'clf__C': 1.5, 'clf__solver': 'liblinear', 'clf__tol': 0.01}
-    model = ranlp_pipelines.make(clf, feature_list, clf_params=clf_params)
+    model = pipelines.make(clf, feature_list, clf_params=clf_params)
 
     # evaluation
     models.append((f'{name}', model))

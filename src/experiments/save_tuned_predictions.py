@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 from src.data_retrieval.helpers import in_memory
-from src.classifier.sklearn import ranlp_pipelines
+from src.classifier.sklearn import pipelines
 from src.evaluation.compare import compare_classifiers
 from src.preprocessing.transformator import get_df
 from sklearn.model_selection import cross_val_predict, GridSearchCV
@@ -43,7 +43,7 @@ param_grid = {
 
 print('All features count: ', len(all_feats))
 for feature_set in all_feats:
-    model = ranlp_pipelines.make(clf, [feature_set])
+    model = pipelines.make(clf, [feature_set])
 
     gs = GridSearchCV(model,
                       param_grid=param_grid,
