@@ -25,33 +25,51 @@ Labels' source of truth: https://mediascan.gadjokov.com/
 
 <img src="https://user-images.githubusercontent.com/493912/62256881-6726ac00-b403-11e9-9060-89f0eebce71f.png" width="400px" />
 
-Dataset can be downloaded from [here]().
+Dataset can be downloaded from [here](https://www.kaggle.com/yoandinkov/mediascan-bg-articles).
 
-Detailed information about dataset, can be found in [docs](/docs/data).
+Detailed information about dataset, can be found in [docs](/docs/data.md).
 
 ## Features
 
 We have generated feature sets for both English and Bulgarian
 
-| Type | Embeddings size |
-|--------|-------|
-| LSA (title) | 15 |
-| LSA (text)  | 200 |
-| BERT (title) | 768 | 
-| BERT (text) | 768 |
-| META (article) | 15 |
-| META (media) | 6 |
+| Language | Feature set | Title | Text |
+|-------|----| ---|-------|
+| Bulgarian | BERT | 768 | 768 |
+| Bulgarian | LSA  | 15 | 200| 
+| Bulgarian | Stylometry | 19 | 6 |
+| Bulgarian | XLM | 1024 | 1024 |
+| English | BERT | 768 | 768 |
+| English | ELMO | 1024 | 1024 |
+| English | NELA | 129 | 129 |
+| English | USE | 512 | 512 |
+|  - |  Media | 6  |
 
 
-## Experiment results
+## Experiments
 
-| Type | Overall accuracy |
-|--------|-------|
-| Baseline | 30.29% |
-| Linear Regression  | 54.33% |
-| Linear Regression (tuned) | 55.65% | 
-| Linear Regression (improved) + Oversammpled dataset | 56.21% |
-| Neural network | 51.10% |
+We conduct experiments by combinding different feature sets, as well as introducing a meta classification. 
+Meta classification is based on posterior probablities of other experiments result.
+For each experiment setup we use fine-tuned LogisticRegression. Provided results are avaraged after 5-fold experiment split.
+
+| Language | Feature set | Accuracy | F1-macro| 
+|-|-|-|-|
+| - | Baseline | 30.30 | 05.17 |
+| Bulgarian | BERT(title), BERT(text) | 47.69 | 32.58 |
+| Bulgarian | XLM(title), XLM (text)  | 38.50 | 24.58 | 
+| Bulgarian | Styl(title), Styl(text) | 31.89 | 08.51 |
+| Bulgarian | LSA(title), LSA(text) | 55.59 |42.11 |
+| Bulgarian | Bulgarian combined | 39.43 | 24.38 |
+| English | USE(title), USE(text) | 53.70 | 40.68 |
+| English | NELA(title), NELA(text) | 36.36 |23.04 |
+| English | BERT(title), BERT(text) | 52.05 | 39.78 |
+| English | ELMO(title), ELMO(text) | 54.60 | 40.95 |
+| English | English combined | 42.04 | 15.64 |
+| - | Media meta | 42.04 | 15.64 |
+| - | All combined | 38.16 | 26.04 |
+| - | __Meta classifier__ | __59.06__ | __39.70__| 
 
 
 ## References
+
+## Acknoledgemnets
