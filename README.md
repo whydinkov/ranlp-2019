@@ -7,7 +7,7 @@ Current repository is used as an experiment evaluation system. Generated results
 
 Contains 221 articles, manually labelled by [Krasimir Gadjokov](https://www.gadjokov.com/) between 2011-2017. As well as 96 non-toxic articles fetched from credible bulgarian news outlets in 2019. To incorporate even more features we use Google API for articles translation. Each article is available in both english and bulgarian.
 
-Toxicity categories are as follows (examples are in Bulgarian)):
+Toxicity categories are as follows (examples are in Bulgarian):
 
 | Category | Example |
 |----------|---------|
@@ -31,7 +31,7 @@ Detailed information about dataset, can be found in [docs](/docs/data.md).
 
 ## Features
 
-We have generated feature sets for both English and Bulgarian
+We have generated following feature sets for both English and Bulgarian:
 
 | Language | Feature set | Title | Text |
 |-------|----| ---|-------|
@@ -48,9 +48,9 @@ We have generated feature sets for both English and Bulgarian
 
 ## Experiments
 
-We conduct experiments by combinding different feature sets, as well as introducing a meta classification. 
+We have conducted experiments by combinding different feature sets, as well as introducing a meta classification. 
 Meta classification is based on posterior probablities of other experiments result.
-For each experiment setup we use fine-tuned LogisticRegression. Provided results are avaraged after 5-fold experiment split.
+For each experiment setup we use fine-tuned [LogisticRegression](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html). Provided results are avaraged after 5-fold experiment split.
 
 | Language | Feature set | Accuracy | F1-macro| 
 |-|-|-|-|
@@ -73,3 +73,6 @@ For each experiment setup we use fine-tuned LogisticRegression. Provided results
 ## References
 
 ## Acknoledgemnets
+This research is part of the [Tanbih project](http://tanbih.qcri.org/), which aims to limit the effect of "fake news", propaganda and media bias by making users aware of what they are reading. The project is developed in collaboration between the Qatar Computing Research Institute (QCRI), HBKU and the MIT Computer Science and Artificial Intelligence Laboratory (CSAIL).
+
+This research is also partially supported by Project UNITe BG05M2OP001-1.001-0004 funded by the OP "Science and Education for Smart Growth" and the EU via the ESI Funds.
