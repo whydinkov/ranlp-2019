@@ -2,10 +2,10 @@ import os
 from os.path import join
 import json
 
-from imblearn.pipeline import Pipeline
+# from imblearn.pipeline import Pipeline
 
 from sklearn.preprocessing import FunctionTransformer
-from sklearn.pipeline import FeatureUnion
+from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.preprocessing import Normalizer
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.decomposition import TruncatedSVD
