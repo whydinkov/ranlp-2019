@@ -70,9 +70,18 @@ For each experiment setup we use fine-tuned [LogisticRegression](https://scikit-
 | - | __Meta classifier__ | __59.06__ | __39.70__| 
 
 
-## References
+## Citing
+If you use results from this paper in a scientific publication, we would appreciate references to the following BibTex entry:
+```
+@article{dinkov2019detecting,
+  title={Detecting Toxicity in News Articles: Application to Bulgarian},
+  author={Dinkov, Yoan and Koychev, Ivan and Nakov, Preslav},
+  journal={arXiv preprint arXiv:1908.09785},
+  year={2019}
+}
+```
 
-## Acknoledgemnets
+## Acknowledgements
 This research is part of the [Tanbih project](http://tanbih.qcri.org/), which aims to limit the effect of "fake news", propaganda and media bias by making users aware of what they are reading. The project is developed in collaboration between the Qatar Computing Research Institute (QCRI), HBKU and the MIT Computer Science and Artificial Intelligence Laboratory (CSAIL).
 
 This research is also partially supported by Project UNITe BG05M2OP001-1.001-0004 funded by the OP "Science and Education for Smart Growth" and the EU via the ESI Funds.
