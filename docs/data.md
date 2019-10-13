@@ -9,13 +9,4 @@ It contains 2 files, that are suppoused to use in 2 different ways _yet containi
 # Data model
 Dataset contains 321 articles, which have following object properties:
 
-```
-{
-    origin: string (url),
-    title: string (in bulgarian),
-    text: string (in bulgarian),
-    authors: string[] - can be empty,
-    published_date: date,
-    
-}
-```
+_TODO_
