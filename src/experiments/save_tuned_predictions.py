@@ -11,8 +11,8 @@ from sklearn.linear_model import LogisticRegression
 
 #db = database.MongoDB()
 
-#articles = list(db.get_articles())
-articles = in_memory.get_articles()
+articles = list(db.get_articles())
+#articles = in_memory.get_articles()
 df = get_df(articles)
 
 clf = LogisticRegression()
