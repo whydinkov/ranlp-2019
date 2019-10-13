@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 
-from src.data_retrieval.helpers import in_memory
 from src.classifier.sklearn import pipelines
 from src.evaluation.compare import compare_classifiers
 from src.preprocessing.transformator import get_df
@@ -12,7 +11,6 @@ from sklearn.linear_model import LogisticRegression
 #db = database.MongoDB()
 
 articles = list(db.get_articles())
-#articles = in_memory.get_articles()
 df = get_df(articles)
 
 clf = LogisticRegression()
