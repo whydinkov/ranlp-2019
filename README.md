@@ -1,7 +1,11 @@
 # Detecting toxicity in news articles - a study for news in Bulgarian language
 
 ## Motivation
-Current repository is used as an experiment evaluation system. Generated results are being used in a research inspired by [RANLP'19](http://lml.bas.bg/ranlp2019/start.php) conference. 
+Current repository is used as an experiment evaluation system. Generated results are being used in a research inspired by [RANLP'19](http://lml.bas.bg/ranlp2019/start.php) conference. Full paper can be found in [arXiv.org](https://arxiv.org/abs/1908.09785)
+
+
+## Reproducing experiments
+If you plan to continue research on top of this or to reproduce , please check [Quick Start](docs/quick_start.md) in docs.
 
 ## Dataset
 
