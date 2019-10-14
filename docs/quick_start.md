@@ -1,3 +1,10 @@
+# Quick start guide
+
+If you plan to reproduce experiments or to continue research on top of this one following steps should be sufficient to be up and running.
+
+0) Prerequisites
+* Import MongoDB to your own instance. Instructions [here](/mongo.md)
+
 1) copy conda environment via  
 `conda env create yoandinkov/pre-master-thesis-linux`
 

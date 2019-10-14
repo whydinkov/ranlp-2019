@@ -19,5 +19,4 @@ This project uses [dotenv](https://github.com/theskumar/python-dotenv), so you n
 MONGO_DB='{MongoDB connection string}'
 DB_NAME='{MongoDB collection name where articles are stored}'
 ```
-
-* 
+ 
