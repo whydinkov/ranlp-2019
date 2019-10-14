@@ -16,7 +16,8 @@ Because of the folder structure, an isolated package should be installed. So aft
 This project uses [dotenv](https://github.com/theskumar/python-dotenv), so you need to have a local .env file in root directory with following properties to run the code locally:
 
 ```
-DB_FILE={path to db as a file}
+MONGO_DB='{MongoDB connection string}'
+DB_NAME='{MongoDB collection name where articles are stored}'
 ```
 
 * 
