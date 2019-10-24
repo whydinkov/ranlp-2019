@@ -1,11 +1,11 @@
 # Detecting toxicity in news articles - a study for news in Bulgarian language
 
 ## Motivation
-Current repository is used as an experiment evaluation system. Generated results are being used in a research inspired by [RANLP'19](http://lml.bas.bg/ranlp2019/start.php) conference. Full paper can be found in [arXiv.org](https://arxiv.org/abs/1908.09785)
+Current repository is used for feature generation and experiment evaluation system. Generated results are being used in a research inspired by [RANLP'19](http://lml.bas.bg/ranlp2019/start.php) conference.
 
 
 ## Reproducing experiments
-If you plan to continue research on top of this or to reproduce , please check [Quick Start](docs/quick_start.md) in docs.
+If you plan to continue research on top of this or to reproduce, please check [Quick Start](docs/quick_start.md) in docs.
 
 ## Dataset
 
@@ -74,8 +74,11 @@ For each experiment setup we use fine-tuned [LogisticRegression](https://scikit-
 | - | __Meta classifier__ | __59.06__ | __39.70__| 
 
 
-## Citing
-If you use results from this paper in a scientific publication, we would appreciate references to the following BibTex entry:
+## References
+Please cite [1] if you found the resources in this repository useful.
+
+[1] Y Dinkov, I Koychev, P Nakov [_Detecting Toxicity in News Articles: Application to Bulgarian_](https://arxiv.org/abs/1908.09785)
+
 ```
 @article{dinkov2019detecting,
   title={Detecting Toxicity in News Articles: Application to Bulgarian},
